@@ -188,6 +188,7 @@ class FastAPIKeycloak:
             None: Inplace method, updates the _admin_token
         """
         decoded_token = self._decode_token(token=value)
+        print(f"Decoded token: {decoded_token}")
         if not decoded_token.get("resource_access").get(
                 "realm-management"
         ) or not decoded_token.get("resource_access").get("account"):
