@@ -5,7 +5,7 @@ import json
 from json import JSONDecodeError
 from typing import Any, Callable, List, Type, Union
 from urllib.parse import urlencode
-
+from tenacity import retry, wait_fixed, stop_after_attempt
 import requests
 from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -323,7 +323,8 @@ class FastAPIKeycloak:
             headers=headers,
             timeout=self.timeout,
         )
-
+    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(1),
+           retry_error_callback=lambda x: logger.warning(x))
     def _get_admin_token(self) -> None:
         """Exchanges client credentials (admin-cli) for an access token.
 
