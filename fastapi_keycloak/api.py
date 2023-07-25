@@ -277,7 +277,7 @@ class FastAPIKeycloak:
         return current_user
 
     @functools.cached_property
-    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(1),
+    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(5),
            retry_error_callback=lambda x: print(x,file=sys.stderr))
     def open_id_configuration(self) -> dict:
         """Returns Keycloaks Open ID Connect configuration
@@ -326,7 +326,7 @@ class FastAPIKeycloak:
             headers=headers,
             timeout=self.timeout,
         )
-    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(1),
+    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(5),
            retry_error_callback=lambda x: print(x,file=sys.stderr))
     def _get_admin_token(self) -> None:
         """Exchanges client credentials (admin-cli) for an access token.
