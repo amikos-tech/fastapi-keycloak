@@ -57,7 +57,7 @@ class KeycloakUser(BaseModel):
     email: Optional[str]
     disableableCredentialTypes: List[str]
     requiredActions: List[str]
-    realmRoles: Optional[List[str]]
+    realmRoles: Optional[List[str]] = Field(default_factory=list)
     notBefore: int
     access: dict
     attributes: Optional[dict]
