@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 import functools
 import json
 from json import JSONDecodeError
@@ -324,7 +325,7 @@ class FastAPIKeycloak:
             timeout=self.timeout,
         )
     @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(1),
-           retry_error_callback=lambda x: logger.warning(x))
+           retry_error_callback=lambda x: print(x,file=sys.stderr))
     def _get_admin_token(self) -> None:
         """Exchanges client credentials (admin-cli) for an access token.
 
