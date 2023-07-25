@@ -277,6 +277,8 @@ class FastAPIKeycloak:
         return current_user
 
     @functools.cached_property
+    @retry(stop=stop_after_attempt(3), reraise=True, wait=wait_fixed(1),
+           retry_error_callback=lambda x: print(x,file=sys.stderr))
     def open_id_configuration(self) -> dict:
         """Returns Keycloaks Open ID Connect configuration
 
