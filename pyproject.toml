@@ -47,5 +47,8 @@ dependencies = [
     "itsdangerous>=2.0.1",
 ]
 
+[build-system]
+requires = ["setuptools", "wheel"]
+
 [project.urls]
 Documentation = "https://fastapi-keycloak.code-specialist.com/"
