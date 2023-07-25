@@ -5,5 +5,13 @@
 
 import setuptools
 
+def get_description():
+    # Read description from README.md
+    with open("README.md", "r") as f:
+        return f.read()
+
 if __name__ == "__main__":
-    setuptools.setup()
+    setuptools.setup(
+        description=get_description(),
+        long_description_content_type="text/markdown",
+    )
